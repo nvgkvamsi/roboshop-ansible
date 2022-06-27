@@ -1,0 +1,4 @@
+- name: Fail if the password MYSQL_PASSWORD Does Not Exist
+  ansible.builtin.fail:
+    msg: MYSQL_PASSWORD variable is missing
+  when: MYSQL_PASSWORD is false
