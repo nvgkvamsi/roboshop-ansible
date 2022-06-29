@@ -1,7 +1,7 @@
 - name: Install Maven
   ansible.builtin.yum:
-    name: maven
-    state: installed
+    name: Maven
+    state: Installed
 
 - name: Import Common App Setup Configurations
   ansible.builtin.include_role:
@@ -13,7 +13,7 @@
   args:
     chdir: /home/roboshop/{{COMPONENT}}
 
-- name: SystemD Setup for {{ COMPONENT }} Service
+- name: System setup for {{ COMPONENT }} Service
   ansible.builtin.include_role:
     name: common
-    tasks_from: systemd
+    tasks_from systemd
