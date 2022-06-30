@@ -16,8 +16,11 @@
     requirements: /home/roboshop/{{COMPONENT}}/requirements.txt
     executable: pip3
 
-- name: print
-  debug:
-    msg: "{{app_user}}"
-
-
+- name: Change the User ID and GID in App Config
+  ansible.builtin.lineinfile:
+    path: /home/roboshop/{{COMPONENT}}/${COMPONENT}.ini
+    regexp: '^{{item.key}}'
+    line: uid = {{item.line}}
+  loop:
+    - {key: uid, line: "uid = {{app_user.uid}}"}
+    - {key: gid, line: "gid = {{app_user.group}}"}
