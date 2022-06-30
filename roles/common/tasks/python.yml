@@ -18,7 +18,7 @@
 
 - name: Change the User ID and GID in App Config
   ansible.builtin.lineinfile:
-    path: /home/roboshop/{{COMPONENT}}/${COMPONENT}.ini
+    path: /home/roboshop/{{COMPONENT}}/{{COMPONENT}}.ini
     regexp: '^{{item.key}}'
     line: uid = {{item.line}}
   loop:
