@@ -1,6 +1,6 @@
 - name: Setup {{ COMPONENT }} SystemD Service
   ansible.builtin.template:
-    src: redis.repo
+    src: systemd.service
     dest: /etc/systemd/system/{{ COMPONENT }}.service
 
 - name: Start {{ COMPONENT }} Service
