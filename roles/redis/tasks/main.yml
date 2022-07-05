@@ -1,4 +1,4 @@
-- name: Copy Redis YUM repo file
+- name: Copy Redis Yum Repo File
   ansible.builtin.template:
     src: redis.repo
     dest: /etc/yum.repos.d/redis.repo
@@ -8,7 +8,7 @@
     name: redis-6.2.7
     state: installed
 
-- name: Replace Listen address in Redis Configuration files
+- name: Replace Listen address in Redis Configuration file
   ansible.builtin.replace:
     path:  "{{item}}"
     regexp: '127.0.0.1'

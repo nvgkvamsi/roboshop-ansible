@@ -1,8 +1,9 @@
 #!/bin/bash
 
 ##### Change these values ###
-ZONE_ID="Z080600234ZUEKDP4RGN8"
+ZONE_ID="Z069695745ZO9JTW1RJD"
 SG_NAME="allow-all-to-public"
+IAM_INSTANCE_PROFILE="Arn=arn:aws:iam::794750663080:instance-profile/role-for-secret-manager-for-roboshop-components"
 #############################
 
 
@@ -14,6 +15,7 @@ create_ec2() {
       --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${COMPONENT}}]" \
       --instance-market-options "MarketType=spot,SpotOptions={SpotInstanceType=persistent,InstanceInterruptionBehavior=stop}"\
       --security-group-ids ${SGID} \
+      --iam-instance-profile="${IAM_INSTANCE_PROFILE}" \
       | jq '.Instances[].PrivateIpAddress' | sed -e 's/"//g')
 
   sed -e "s/IPADDRESS/${PRIVATE_IP}/" -e "s/COMPONENT/${COMPONENT}/" route53.json >/tmp/record.json
@@ -21,7 +23,9 @@ create_ec2() {
 }
 
 #AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" | jq '.Images[].ImageId' | sed -e 's/"//g')
-AMI_ID="ami-0eccf89e870877654"
+
+AMI_ID="ami-0ed52d9176c96bc18"
+
 SGID=$(aws ec2 describe-security-groups --filters Name=group-name,Values=${SG_NAME} | jq  '.SecurityGroups[].GroupId' | sed -e 's/"//g')
 
 if [ "$COMPONENT" == "all" ]; then

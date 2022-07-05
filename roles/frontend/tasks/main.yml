@@ -3,18 +3,19 @@
     name: nginx
     state: installed
 
-- name: Import Common Role
+- name: Import Common Role for code download
   ansible.builtin.include_role:
     name: common
     tasks_from: download
 
-- name: Copy RoboShop Config file
+- name: Copy Roboshop config file
   ansible.builtin.template:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
+  notify: Restart Nginx Service
 
 - name: Start Nginx Service
   ansible.builtin.systemd:
     name: nginx
-    state: restarted
+    state: started
     enabled: yes

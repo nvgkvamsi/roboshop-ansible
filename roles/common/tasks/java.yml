@@ -1,7 +1,7 @@
 - name: Install Maven
   ansible.builtin.yum:
-    name: Maven
-    state: Installed
+    name: maven
+    state: installed
 
 - name: Import Common App Setup Configurations
   ansible.builtin.include_role:
@@ -16,4 +16,4 @@
 - name: System setup for {{ COMPONENT }} Service
   ansible.builtin.include_role:
     name: common
-    tasks_from systemd
+    tasks_from: systemd
